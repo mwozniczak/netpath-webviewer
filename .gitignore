@@ -1,0 +1,9 @@
+.idea/
+__pycache__
+venv*/
+node_modules/
+bower_components/
+appendix*
+*.log
+.codeintel/
+.sublime-gulp.cache

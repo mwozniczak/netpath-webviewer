@@ -1,0 +1,6 @@
+autobahn==0.13.0
+decorator==4.0.9
+networkx==1.11
+pyzmq==15.2.0
+six==1.10.0
+txaio==2.2.2

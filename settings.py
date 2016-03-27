@@ -1,0 +1,2 @@
+DEFAULT_SUBSCRIBE_ADDRESS = "tcp://localhost:5677"
+REBROADCAST_INTERVAL = {'seconds': 5}
