@@ -33,7 +33,8 @@ So to recap:
  1. Install python (Python **3** for now!) packages from `requirements.txt`
  2. Run `websockets_server.py`
  3. Run `example_sender.py` as a separate process, or roll your own zeroMQ data provider
- 4. run `dist/index.html` in your browser, preferably from a webserver.
+ 4. Run `dist/index.html` in your browser, preferably from a webserver. (Note: see the 'How do I build'
+    section for quick way to set up a temporary local dev-quality server)
  5. (Optional) tweak `settings.py` to match your preferences.
 
 ## How do I build the frontend part?
@@ -51,4 +52,5 @@ Once you have that, in the project root do:
 `gulp`
 
 That chain of commands should run Gulp.js, and its associated tasks that will detect file modifications
-and rebuild the UI as needed.
+and rebuild the UI as needed. After the build tasks are done, the gulp build process will keep alive a
+local dev webserver on http://localhost:8080 you can use. The server will autoreload on rebuild.
