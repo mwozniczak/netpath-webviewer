@@ -30,7 +30,7 @@ magic of websockets. I recommend running it from a local webserver of your choic
 
 So to recap:
 
- 1. Install python packages from `requirements.txt`
+ 1. Install python (Python **3** for now!) packages from `requirements.txt`
  2. Run `websockets_server.py`
  3. Run `example_sender.py` as a separate process, or roll your own zeroMQ data provider
  4. run `dist/index.html` in your browser, preferably from a webserver.
@@ -43,8 +43,11 @@ I'm using gulp for the web frontend parts, so to set it up you need node.js and 
 Once you have that, in the project root do:
 
 `npm install`
+
 `npm install -g gulp bower`
+
 `bower install`
+
 `gulp`
 
 That chain of commands should run Gulp.js, and its associated tasks that will detect file modifications
