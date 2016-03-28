@@ -32,7 +32,8 @@ So to recap:
 
  1. Install python (Python **3** for now!) packages from `requirements.txt`
  2. Run `websockets_server.py`
- 3. Run `example_sender.py` as a separate process, or roll your own zeroMQ data provider
+ 3. Run `example_sender.py` as a separate process, or roll your own zeroMQ data provider. Note that if
+    you want to use `example_sender.py`, you may also need to install numpy.
  4. Run `dist/index.html` in your browser, preferably from a webserver. (Note: see the 'How do I build'
     section for quick way to set up a temporary local dev-quality server)
  5. (Optional) tweak `settings.py` to match your preferences.
