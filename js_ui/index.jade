@@ -1,12 +1,28 @@
 doctype html
 html
-	head
-		link(rel='stylesheet' type='text/css' href='./styles/styles.css')
-		title test
-	body
-		#graph
-		// build:js js/all.js
-		script(src='../node_modules/graphosaurus/dist/graphosaurus.js')
-		script(src='../bower_components/underscore/underscore-min.js')
-		script(src='js/main.js')
-		// endbuild
+    head
+        link(rel='stylesheet' type='text/css' href='./styles/styles.css')
+        title test
+    body
+        #graph
+        // build:js js/all.js
+        script(src='../node_modules/graphosaurus/dist/graphosaurus.js')
+        script(src='../bower_components/underscore/underscore-min.js')
+        script(src='js/constants.js')
+        script(src='js/graph_utils.js')
+        script(src='js/main.js')
+        // endbuild
+
+        #nodeInfo
+            div
+                em ID: 
+                span#node_id
+            div
+                em X: 
+                span#node_x
+            div
+                em Y: 
+                span#node_y
+            div
+                em Z: 
+                span#node_z

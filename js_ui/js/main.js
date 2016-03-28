@@ -1,27 +1,35 @@
 window.onload = function() {
+    'use strict';
 
-    const colors = {
-        nodes: {
-            normal: 0x888888,
-            path: 'red'
-        },
-        edges: {
-            normal: 0x444444,
-            path: 'white'
-        }
-    };
+    var lastHoveredNode;
 
     var graph = G.graph({
         nodeImageTransparent: true,
         antialias: true,
         bgColor: "black",
         edgeWidth: 2,
-        nodeSize: 6
+        nodeSize: 6,
+        hover: function(node) {
+            if (lastHoveredNode) {
+                lastHoveredNode.setColor(colors.nodes.normal);
+            }
+            node.setColor(colors.nodes.hovered);
+            graph.syncDataToFrames();
+            lastHoveredNode = node;
+
+            document.getElementById('node_id').innerHTML = node.id();
+            ['x', 'y', 'z'].forEach(function(e) {
+                document.getElementById('node_' + e).innerHTML = node._pos[e];
+            });
+        },
+        //click: nodeClick
     });
 
     graph.renderIn("graph");
 
-    var socket = new WebSocket("ws://127.0.0.1:9000");
+    var socket = new WebSocket(
+        "ws://"+ window.location.hostname+":9000"
+        );
     socket.binaryType = "arraybuffer";
 
     var nodes;
@@ -67,8 +75,8 @@ window.onload = function() {
             endpoint_nodes.length = 0;
 
             endpoint_nodes = [
-                graph._nodeIds[data.endpoints[0]],
-                graph._nodeIds[data.endpoints[1]]
+            graph._nodeIds[data.endpoints[0]],
+            graph._nodeIds[data.endpoints[1]]
             ];
 
             endpoint_nodes.forEach(function(e) {
@@ -77,18 +85,13 @@ window.onload = function() {
                 } catch(err) {}
             });
 
-            if (path.length) {
-                path_edges = graph.edges().filter(function(edge) {
-                    var nodes = edge.nodes();
-                    return path.some(function(pEdge) {
-                        return ((nodes[0]._id == pEdge[0]) && (nodes[1]._id == pEdge[1])) ||
-                               ((nodes[0]._id == pEdge[1]) && (nodes[1]._id == pEdge[0]))
-                    });
+            path_edges = getEdgesForPath(graph, path);
+
+            if (path_edges) {
+                path_edges.forEach(function(edge) {
+                    edge.setColor(colors.edges.path);
                 });
             }
-            path_edges.forEach(function(edge) {
-                edge.setColor(colors.edges.path);
-            });
 
             graph.syncDataToFrames();
         } else {
