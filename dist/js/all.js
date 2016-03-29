@@ -42247,8 +42247,9 @@ window.onload = function() {
 
     graph.renderIn("graph");
 
+    var hostname = window.location.hostname || '127.0.0.1';
     var socket = new WebSocket(
-        "ws://"+ window.location.hostname+":9000"
+        "ws://"+ hostname+":9000"
         );
     socket.binaryType = "arraybuffer";
 
