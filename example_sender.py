@@ -13,9 +13,9 @@ def main(address=None):
     socket = zmq.Context().socket(zmq.PUB)
     socket.bind(address)
 
-    graph = nx.cycle_graph(500)
+    graph = nx.random_regular_graph(8, 100)
     nodes = graph.nodes()
-    nx.set_node_attributes(graph, 'position', nx.spring_layout(graph, dim=3))
+    nx.set_node_attributes(graph, 'position', nx.random_layout(graph, dim=3))
     start_node = choice(nodes)
 
     fileobj = BytesIO()
