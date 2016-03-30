@@ -11,9 +11,9 @@ window.onload = function() {
         nodeSize: 6,
         hover: function(node) {
             if (lastHoveredNode) {
-                lastHoveredNode.setColor(colors.nodes.normal);
+                lastHoveredNode.setColor(graph.colors.nodes.normal);
             }
-            node.setColor(colors.nodes.hovered);
+            node.setColor(graph.colors.nodes.hovered);
             graph.syncDataToFrames();
             lastHoveredNode = node;
 
