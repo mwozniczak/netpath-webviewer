@@ -16,27 +16,38 @@ in real time.
 
 ## How do I use it?
 
-First, you need Python 3 (at this time, I have taken no time to make it Python2-compatible, although
-that should be fairly straightforward).
+You need to install the packages from requirements.txt (no setup.py yet, sorry!):
 
-Then, you need to install the packages from requirements.txt (no setup.py yet, sorry!).
+`pip install -r requirements.txt`
+
+If you're running it on Python 2.x, you also need to:
+
+`pip install trollius`
 
 Once you have it set up, you need to run `websockets_server.py`, which will
-set up both the server the web GUI will use to receive data from, and the listener for data coming in
-from ZeroMQ.
+set up both the websockets server from which the GUI part will receive data.
+It will also listen for data coming in from ZeroMQ
 
-As a last step, you need a ZeroMQ data provider. You can find an example one, that generates a random
-diagram, named `example_sender.py`.
+As a last step, you need a ZeroMQ data provider. There is one named `example_sender.py`
+you can use as a tech demo or a reference if you want to roll your own.
 
-Once that's done, in the `dist` folder you have the index.html file that displays our data thanks to the
-magic of websockets. I recommend running it from a local webserver of your choice.
+Note that if you want to use `example_sender.py` you will also need to
+
+`pip install numpy`
+
+Once that's done, in the `dist` folder you have the index.html file that displays
+the data provided from ZeroMQ and processed by the server, all thanks to the
+magic of websockets.
+
+I recommend serving it from a local webserver of your choice, but it will also work
+if you just open the file in your browser directly.
 
 So to recap:
 
- 1. Install python (Python **3** for now!) packages from `requirements.txt`
+ 1. Install python packages from `requirements.txt` and, if you're on Python 2, `trollius`.
  2. Run `websockets_server.py`
- 3. Run `example_sender.py` as a separate process, or roll your own zeroMQ data provider. Note that if
-    you want to use `example_sender.py`, you may also need to install numpy.
+ 3. Run `example_sender.py` as a separate process, or roll your own compatible zeroMQ data provider.
+    Note that if you want to use `example_sender.py`, you also need to install numpy.
  4. Run `dist/index.html` in your browser, preferably from a webserver. (Note: see the 'How do I build'
     section for quick way to set up a temporary local dev-quality server)
  5. (Optional) tweak `settings.py` to match your preferences.
