@@ -10,12 +10,17 @@ Usage: websocket_server.py [ZeroMQ address] [-h|--help]
 
 """
 
+from __future__ import print_function
 from autobahn.asyncio.websocket import WebSocketServerProtocol, WebSocketServerFactory
-import asyncio
 import backend
 import threading
 import json
 import sys
+
+try:
+    import asyncio
+except ImportError:
+    import trollius as asyncio
 
 import settings
 
