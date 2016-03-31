@@ -3,6 +3,9 @@
 ## What is it?
 
 It's a tool for displaying an interactive 3d diagram of nodes, linked together.
+
+[It looks like this.](http://imgur.com/gallery/4aNVJsB)
+
 The data is fed from a ZeroMQ address, in a [NetworkX](https://networkx.github.io/) graph format.
 (Note that the nodes need to have an extra attribute, `'position'`, that's a tuple of `(x, y, z)`
 co-ordinates)
