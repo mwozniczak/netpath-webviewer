@@ -42321,7 +42321,7 @@ window.onload = function() {
 
             document.getElementById('node_id').innerHTML = node.id();
             ['x', 'y', 'z'].forEach(function(e) {
-                document.getElementById('node_' + e).innerHTML = node._pos[e];
+                document.getElementById('node_' + e).innerHTML = node._pos[e].toFixed(3);
             });
         },
         //click: nodeClick

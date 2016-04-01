@@ -2,6 +2,11 @@ doctype html
 html
     head
         link(rel='stylesheet' type='text/css' href='./styles/styles.css')
+        
+        // build:css styles/addons.css
+        link(rel='stylesheet' type='text/css' href='./styles/silkscreen_normal_macroman.css')
+        link(rel='stylesheet' type='text/css' href='./styles/silkscreen_bold_macroman.css')
+        // endbuild
         title test
     body
         #graph
@@ -11,7 +16,8 @@ html
         script(src='js/main.js')
         // endbuild
 
-        #nodeInfo
+        #nodeInfo.infobox
+            h4 Node data
             div
                 em ID: 
                 span#node_id
