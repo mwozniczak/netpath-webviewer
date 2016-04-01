@@ -1,7 +1,7 @@
 window.onload = function() {
     'use strict';
 
-    var lastHoveredNode;
+    // var lastHoveredNode;
 
     var graph = G.graph({
         nodeImageTransparent: true,
@@ -10,12 +10,12 @@ window.onload = function() {
         edgeWidth: 2,
         nodeSize: 6,
         hover: function(node) {
-            if (lastHoveredNode) {
-                lastHoveredNode.setColor(graph.colors.nodes.normal);
+            if (graph.lastHoveredNode) {
+                graph.lastHoveredNode.setColor(graph.colors.nodes.normal);
             }
             node.setColor(graph.colors.nodes.hovered);
             graph.syncDataToFrames();
-            lastHoveredNode = node;
+            graph.lastHoveredNode = node;
 
             document.getElementById('node_id').innerHTML = node.id();
             ['x', 'y', 'z'].forEach(function(e) {

@@ -10,12 +10,23 @@
   <body>
     <div id="graph"></div>
     <script src="js/all.js"></script>
-    <div id="nodeInfo" class="infobox">
-      <h4>Node data</h4>
-      <div><em><span class="caps">ID</span>: </em><span id="node_id"></span></div>
-      <div><em>X: </em><span id="node_x"></span></div>
-      <div><em>Y: </em><span id="node_y"></span></div>
-      <div><em>Z: </em><span id="node_z"></span></div>
+    <div id="infoBoxen">
+      <div id="nodeInfo" class="infobox">
+        <h4>Node data</h4>
+        <div><em><span class="caps">ID</span>: </em><span id="node_id"></span></div>
+        <div><em>X: </em><span id="node_x"></span></div>
+        <div><em>Y: </em><span id="node_y"></span></div>
+        <div><em>Z: </em><span id="node_z"></span></div>
+      </div>
+      <div id="autoPathInfo" class="infobox">
+        <h4>Path received</h4>
+        <div><em>From: </em><span id="auto_endpoint_from"></span></div>
+        <div><em>To: </em><span id="auto_endpoint_to"></span></div>
+        <div><em>Length: </em><span id="auto_path_length"></span></div>
+        <div>
+          <ul id="auto_edges"></ul>
+        </div>
+      </div>
     </div>
   </body>
 

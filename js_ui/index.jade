@@ -16,17 +16,31 @@ html
         script(src='js/main.js')
         // endbuild
 
-        #nodeInfo.infobox
-            h4 Node data
-            div
-                em ID: 
-                span#node_id
-            div
-                em X: 
-                span#node_x
-            div
-                em Y: 
-                span#node_y
-            div
-                em Z: 
-                span#node_z
+        #infoBoxen
+            #nodeInfo.infobox
+                h4 Node data
+                div
+                    em ID: 
+                    span#node_id
+                div
+                    em X: 
+                    span#node_x
+                div
+                    em Y: 
+                    span#node_y
+                div
+                    em Z: 
+                    span#node_z
+            #autoPathInfo.infobox
+                h4 Path received
+                div
+                    em From: 
+                    span#auto_endpoint_from
+                div
+                    em To: 
+                    span#auto_endpoint_to
+                div
+                    em Length: 
+                    span#auto_path_length
+                div
+                    ul#auto_edges

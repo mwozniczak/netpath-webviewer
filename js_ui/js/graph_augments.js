@@ -28,6 +28,18 @@ var enhance_graph = function (graph) {
 
     graph.lastHoveredNode = undefined;
 
+    graph.updateUI = function() {
+        window.document.getElementById('auto_endpoint_from').innerHTML = graph.path.from_socket.endpoints[0]._id;
+        window.document.getElementById('auto_endpoint_to').innerHTML = graph.path.from_socket.endpoints[1]._id;
+
+        var edgesUl = window.document.getElementById('auto_edges');
+        window.document.getElementById('auto_path_length').innerHTML = graph.path.from_socket.edges.length;
+        edgesUl.innerHTML = '';
+        graph.path.from_socket.edges.forEach(function (edge) {
+            edgesUl.innerHTML += '<li>' + edge._nodes[0]._id + ' &lt;=&gt; ' + edge._nodes[1]._id + '</li>';
+        });
+    }
+
     graph.purgePaths = function (sources, skip_node_recolor, skip_edge_recolor) {
         sources = sources || Object.keys(graph.path);
         sources.forEach(function (source) {
@@ -106,6 +118,8 @@ var enhance_graph = function (graph) {
                     edge.setColor(graph.colors.edges['path_'+path_type]);
                 });
             }
+
+            graph.updateUI();
 
             graph.syncDataToFrames();
     }
