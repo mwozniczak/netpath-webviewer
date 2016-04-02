@@ -16,7 +16,7 @@ html
         script(src='js/main.js')
         // endbuild
 
-        #infoBoxen
+        .infoBoxen#graphInfo
             #nodeInfo.infobox
                 h4 Node data
                 div
@@ -31,8 +31,11 @@ html
                 div
                     em Z: 
                     span#node_z
+            #manualPathInfo.infobox
+                h4 Path requested
             #autoPathInfo.infobox
                 h4 Path received
+                    span#pause_auto &#9658
                 div
                     em From: 
                     span#auto_endpoint_from
@@ -44,3 +47,7 @@ html
                     span#auto_path_length
                 div
                     ul#auto_edges
+
+        .infoBoxen#connInfo
+            #timesInfo.infobox
+                h4 Time

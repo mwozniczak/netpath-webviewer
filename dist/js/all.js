@@ -42215,6 +42215,8 @@ var enhance_graph = function (graph) {
         }
     };
 
+    graph.isPaused = false;
+
     graph.lastHoveredNode = undefined;
 
     graph.updateUI = function() {
