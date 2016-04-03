@@ -42,7 +42,11 @@
     </div>
     <div id="connInfo" class="infoBoxen">
       <div id="timesInfo" class="infobox">
-        <h4>Time</h4></div>
+        <h4>Times</h4>
+        <div><em>Last update: </em><span id="last_update"></span></div>
+        <div title="Time between when data was generated vs. when it was received by the UI"><em>Socket lag: </em><span id="full_time"></span></div>
+        <div title="Time between data receipt and rendering on-screen"><em>Render lag: </em><span id="rcv_to_render_time"></span></div>
+      </div>
     </div>
   </body>
 

@@ -35,12 +35,17 @@ window.onload = function() {
     };
 
     socket.onmessage = function(e) {
+        var receiptTime = new Date();
         var data = JSON.parse(e.data);
         if (data.hasOwnProperty('path')) {
             graph.drawPath(data.endpoints, data.path);
         } else {
             graph.redraw(data.nodes, data.edges, data.path);
         }
+        var now = new Date();
+        document.getElementById('last_update').innerHTML = new Date(data.timestamp * 1000);
+        document.getElementById('full_time').innerHTML = (now.getTime() - data.timestamp*1000) + ' ms';
+        document.getElementById('rcv_to_render_time').innerHTML = (now.getTime() - receiptTime.getTime()) + ' ms';
 
     };
 };

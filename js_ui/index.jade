@@ -66,4 +66,13 @@ html
 
         .infoBoxen#connInfo
             #timesInfo.infobox
-                h4 Time
+                h4 Times
+                div
+                    em Last update: 
+                    span#last_update
+                div(title='Time between when data was generated vs. when it was received by the UI')
+                    em Socket lag: 
+                    span#full_time
+                div(title='Time between data receipt and rendering on-screen')
+                    em Render lag: 
+                    span#rcv_to_render_time
