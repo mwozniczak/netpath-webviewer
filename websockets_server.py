@@ -13,7 +13,9 @@ Usage: websocket_server.py [ZeroMQ address] [-h|--help]
 from __future__ import print_function
 from autobahn.asyncio.websocket import WebSocketServerProtocol, WebSocketServerFactory
 import backend
+from datetime import datetime
 import threading
+import time
 import json
 import sys
 
@@ -49,7 +51,12 @@ class GraphProtocol(WebSocketServerProtocol):
          - path_dict
         """
         def _process_value(value):
-            self.sendMessage(json.dumps(value).encode('utf-8'), isBinary=False)
+            try:
+                sent_out = value.copy()
+                sent_out['timestamp'] = time.mktime(datetime.now().timetuple())
+            except AttributeError:
+                sent_out = value
+            self.sendMessage(json.dumps(sent_out).encode('utf-8'), isBinary=False)
 
         super(GraphProtocol, self).__init__()
         backend.chart_dict.add_observers(_process_value)
