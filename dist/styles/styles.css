@@ -42,6 +42,12 @@ body {
   display: inline-block;
   width: 80px;
 }
+#connInfo .infobox {
+  width: 300px;
+}
+#connInfo .infobox em {
+  width: 150px;
+}
 #nodeInfo {
   white-space: nowrap;
   overflow: hidden;
