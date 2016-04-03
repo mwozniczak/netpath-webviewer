@@ -27,7 +27,7 @@ body {
   margin: 1em;
   background: rgba(0,0,0,0.4);
   box-shadow: 0px 0px 5px #000;
-  width: 150px;
+  width: 200px;
 }
 .infobox div {
   margin-left: 1em;
@@ -39,6 +39,8 @@ body {
   font-family: silkscreenbold;
   font-style: normal;
   color: #fff;
+  display: inline-block;
+  width: 80px;
 }
 #nodeInfo {
   white-space: nowrap;
@@ -56,4 +58,7 @@ body {
 }
 #pause_auto {
   cursor: pointer;
+}
+.unpicked {
+  color: #888;
 }

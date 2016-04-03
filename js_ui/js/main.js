@@ -10,19 +10,14 @@ window.onload = function() {
         edgeWidth: 2,
         nodeSize: 6,
         hover: function(node) {
-            if (graph.lastHoveredNode) {
-                graph.lastHoveredNode.setColor(graph.colors.nodes.normal);
-            }
-            node.setColor(graph.colors.nodes.hovered);
-            graph.syncDataToFrames();
-            graph.lastHoveredNode = node;
-
-            document.getElementById('node_id').innerHTML = node.id();
-            ['x', 'y', 'z'].forEach(function(e) {
-                document.getElementById('node_' + e).innerHTML = node._pos[e].toFixed(3);
-            });
+            graph.hover(node);
         },
-        //click: nodeClick
+        click: function(node) {
+            graph.pickNode(0, node);
+        },
+        rightClick: function(node) {
+            graph.pickNode(1, node);
+        }
     });
 
     graph.renderIn("graph");

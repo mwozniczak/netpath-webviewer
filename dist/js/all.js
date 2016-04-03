@@ -41789,6 +41789,11 @@ module.exports = (function () {
             elem.addEventListener(
                 'click', createMouseHandler(this.graph._click), false);
         }
+
+        if (this.graph._rightClick) {
+            elem.addEventListener(
+                'contextmenu', createMouseHandler(this.graph._rightClick), false);
+        }
     };
 
     Frame.prototype._updateCameraBounds = (function () {
@@ -41890,6 +41895,8 @@ module.exports = (function () {
         this._hover = properties.hover || undefined;
 
         this._click = properties.click || undefined;
+
+        this._rightClick = properties.rightClick || undefined;
 
         return this;
     };
@@ -42210,7 +42217,7 @@ var enhance_graph = function (graph) {
             edges: []
         },
         from_ui: {
-            endpoints: [],
+            endpoints: [undefined, undefined],
             edges: []
         }
     };
@@ -42218,6 +42225,20 @@ var enhance_graph = function (graph) {
     graph.isPaused = false;
 
     graph.lastHoveredNode = undefined;
+
+    graph.hover = function(node) {
+        if (graph.lastHoveredNode) {
+            graph.lastHoveredNode.setColor(graph.colors.nodes.normal);
+        }
+        node.setColor(graph.colors.nodes.hovered);
+        graph.syncDataToFrames();
+        graph.lastHoveredNode = node;
+
+        document.getElementById('node_id').innerHTML = node.id();
+        ['x', 'y', 'z'].forEach(function(e) {
+            document.getElementById('node_' + e).innerHTML = node._pos[e].toFixed(3);
+        });
+    }
 
     graph.updateUI = function() {
         window.document.getElementById('auto_endpoint_from').innerHTML = graph.path.from_socket.endpoints[0]._id;
@@ -42229,6 +42250,25 @@ var enhance_graph = function (graph) {
         graph.path.from_socket.edges.forEach(function (edge) {
             edgesUl.innerHTML += '<li>' + edge._nodes[0]._id + ' &lt;=&gt; ' + edge._nodes[1]._id + '</li>';
         });
+
+        window.document.getElementById('node_count').innerHTML = graph._nodes.length;
+        window.document.getElementById('edge_count').innerHTML = graph._edges.length;
+    }
+
+    graph.pickNode = function(which_endpoint, node) {
+        var old_node = graph.path.from_ui.endpoints[which_endpoint];
+        if (old_node !== undefined) {
+            old_node.setColor(graph.colors.nodes.normal);
+        }
+        node.setColor(graph.colors.nodes.path_from_ui);
+        graph.path.from_ui.endpoints[which_endpoint] = node;
+
+        window.document.getElementById('from_ui_endpoint_'+which_endpoint).innerHTML = node._id;
+        console.log(graph.path.from_ui.endpoints);
+    }
+
+    graph.togglePause = function() {
+        graph.isPaused = !graph.isPaused;
     }
 
     graph.purgePaths = function (sources, skip_node_recolor, skip_edge_recolor) {
@@ -42288,6 +42328,9 @@ var enhance_graph = function (graph) {
     }
 
     graph.drawPath = function (endpoints, path, from_ui) {
+            if (graph.isPaused) {
+                return;
+            }
             var path_type = ['from_socket', 'from_ui'][(!!from_ui)|0];
             graph.purgePaths([path_type]);
 
@@ -42328,19 +42371,14 @@ window.onload = function() {
         edgeWidth: 2,
         nodeSize: 6,
         hover: function(node) {
-            if (graph.lastHoveredNode) {
-                graph.lastHoveredNode.setColor(graph.colors.nodes.normal);
-            }
-            node.setColor(graph.colors.nodes.hovered);
-            graph.syncDataToFrames();
-            graph.lastHoveredNode = node;
-
-            document.getElementById('node_id').innerHTML = node.id();
-            ['x', 'y', 'z'].forEach(function(e) {
-                document.getElementById('node_' + e).innerHTML = node._pos[e].toFixed(3);
-            });
+            graph.hover(node);
         },
-        //click: nodeClick
+        click: function(node) {
+            graph.pickNode(0, node);
+        },
+        rightClick: function(node) {
+            graph.pickNode(1, node);
+        }
     });
 
     graph.renderIn("graph");

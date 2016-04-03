@@ -11,6 +11,11 @@
     <div id="graph"></div>
     <script src="js/all.js"></script>
     <div id="graphInfo" class="infoBoxen">
+      <div id="graphInfo" class="infobox">
+        <h4>Graph data</h4>
+        <div><em>Nodes:</em><span id="node_count"></span></div>
+        <div><em>Edges:</em><span id="edge_count"></span></div>
+      </div>
       <div id="nodeInfo" class="infobox">
         <h4>Node data</h4>
         <div><em><span class="caps">ID</span>: </em><span id="node_id"></span></div>
@@ -19,9 +24,14 @@
         <div><em>Z: </em><span id="node_z"></span></div>
       </div>
       <div id="manualPathInfo" class="infobox">
-        <h4>Path requested</h4></div>
+        <h4>Path requested</h4>
+        <div><em>From: </em><span id="from_ui_endpoint_0" class="unpicked"><span class="caps">LMB</span> to pick</span>
+        </div>
+        <div><em>To: </em><span id="from_ui_endpoint_1" class="unpicked"><span class="caps">RMB</span> to pick</span>
+        </div>
+      </div>
       <div id="autoPathInfo" class="infobox">
-        <h4>Path received<span id="pause_auto">&#9658</span></h4>
+        <h4>Path received<span id="auto_pause_indicator">&#9658</span></h4>
         <div><em>From: </em><span id="auto_endpoint_from"></span></div>
         <div><em>To: </em><span id="auto_endpoint_to"></span></div>
         <div><em>Length: </em><span id="auto_path_length"></span></div>

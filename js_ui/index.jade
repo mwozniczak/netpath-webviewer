@@ -17,6 +17,14 @@ html
         // endbuild
 
         .infoBoxen#graphInfo
+            #graphInfo.infobox
+                h4 Graph data
+                div
+                    em Nodes:
+                    span#node_count
+                div
+                    em Edges:
+                    span#edge_count
             #nodeInfo.infobox
                 h4 Node data
                 div
@@ -33,9 +41,17 @@ html
                     span#node_z
             #manualPathInfo.infobox
                 h4 Path requested
+                div
+                    em From: 
+                    span#from_ui_endpoint_0.unpicked.
+                        LMB to pick
+                div
+                    em To: 
+                    span#from_ui_endpoint_1.unpicked.
+                        RMB to pick
             #autoPathInfo.infobox
                 h4 Path received
-                    span#pause_auto &#9658
+                    span#auto_pause_indicator &#9658
                 div
                     em From: 
                     span#auto_endpoint_from
