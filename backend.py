@@ -39,7 +39,7 @@ def graph_to_dicts(graph):
 
     chart_dict.overwrite({
         'nodes': {x: tuple(networkx.get_node_attributes(graph, 'position')[x]) for x in graph},
-        'edges': [sorted(x) for x in graph.edges()]
+        'edges': [x for x in graph.edges()]
     })
 
 
@@ -57,9 +57,10 @@ def path_to_dict(path):
     """
     global path_dict
     path_dict.overwrite({
-        'path': [sorted(x) for x in pairwise(path)],
+        'path': [x for x in pairwise(path)],
         'endpoints': (path[0], path[-1])
     })
+    print (path_dict.value)
 
 
 def receive_loop(zmq_address=settings.DEFAULT_SUBSCRIBE_ADDRESS):
