@@ -78,25 +78,51 @@ var enhance_graph = function (graph) {
     graph.purgePaths = function (sources, skip_node_recolor, skip_edge_recolor) {
         sources = sources || Object.keys(graph.path);
         sources.forEach(function (source) {
-            if (!skip_node_recolor) {
-                try {
-                    graph.path[source].endpoints.forEach(function (endpoint) {
-                        endpoint.setColor(graph.colors.nodes.normal);
-                    });
-                } catch (err) {}
-            }
-            if (!skip_edge_recolor) {
-                try {
-                    graph.path[source].edges.forEach(function (edge) {
-                        edge.setColor(graph.colors.edges.normal);
-                    });
-                } catch (err) {}
-            }
-            graph.syncDataToFrames();
+            // if (!skip_node_recolor) {
+            //     try {
+            //         graph.path[source].endpoints.forEach(function (endpoint) {
+            //             endpoint.setColor(graph.colors.nodes.normal);
+            //         });
+            //     } catch (err) {}
+            // }
+            // if (!skip_edge_recolor) {
+            //     try {
+            //         graph.path[source].edges.forEach(function (edge) {
+            //             edge.setColor(graph.colors.edges.normal);
+            //         });
+            //     } catch (err) {}
+            // }
             graph.path[source].endpoints.length = 0;
             graph.path[source].edges.length = 0;
+            graph.colorize();
+            graph.syncDataToFrames();
         });
     };
+
+    graph.colorize = function() {
+        console.log('endpoints', graph.path.from_socket.endpoints);
+
+        graph._nodes.forEach(function (node) {
+            if (graph.path.from_socket.endpoints.indexOf(node) !== -1) {
+                node.setColor(graph.colors.nodes.path_from_socket);
+            } else if ((graph.path.from_ui.endpoints.indexOf(node) !== -1)) {
+                node.setColor(graph.colors.nodes.path_from_ui);
+            } else {
+                node.setColor(graph.colors.nodes.normal);
+            }
+        });
+        graph._edges.forEach(function (edge) {
+            if (graph.path.from_socket.edges.indexOf(edge) !== -1) {
+                console.log('is edge:', edge, graph.path.from_socket.edges);
+                edge.setColor(graph.colors.edges.path_from_socket);
+            } else if (graph.path.from_ui.edges.indexOf(edge) !== -1) {
+                edge.setColor(graph.colors.edges.path_from_ui);
+            } else {
+                edge.setColor(graph.colors.edges.normal);
+            }
+        });
+        graph.syncDataToFrames();
+    }
 
     graph.redraw = function (new_nodes, new_edges) {
         graph.purgePaths(null, true, true);
@@ -124,9 +150,10 @@ var enhance_graph = function (graph) {
         } 
         return graph._edges.filter(function(edge) {
             var nodes = edge.nodes();
+            var node_ids = [nodes[0]._id, nodes[1]._id].sort();
             return path.some(function(pEdge) {
-                return ((nodes[0]._id == pEdge[0]) && (nodes[1]._id == pEdge[1])) ||
-                ((nodes[0]._id == pEdge[1]) && (nodes[1]._id == pEdge[0]))
+                var path_nodes = pEdge.sort();
+                return (node_ids[0] == path_nodes[0] && node_ids[1] == path_nodes[1]);
             });
         });
     }
@@ -143,21 +170,23 @@ var enhance_graph = function (graph) {
                 graph._nodeIds[endpoints[1]]
             ];
 
-            graph.path[path_type].endpoints.forEach(function(e) {
-                try {
-                    e.setColor(graph.colors.nodes['path_'+path_type]);
-                } catch(err) {}
-            });
+            // graph.path[path_type].endpoints.forEach(function(e) {
+            //     try {
+            //         e.setColor(graph.colors.nodes['path_'+path_type]);
+            //     } catch(err) {}
+            // });
 
             graph.path[path_type].edges = graph.getEdges(path);
 
-            if (graph.path[path_type].edges) {
-                graph.path[path_type].edges.forEach(function(edge) {
-                    edge.setColor(graph.colors.edges['path_'+path_type]);
-                });
-            }
+
+            // if (graph.path[path_type].edges) {
+            //     graph.path[path_type].edges.forEach(function(edge) {
+            //         edge.setColor(graph.colors.edges['path_'+path_type]);
+            //     });
+            // }
 
             graph.updateUI();
+            graph.colorize();
 
             graph.syncDataToFrames();
     }
