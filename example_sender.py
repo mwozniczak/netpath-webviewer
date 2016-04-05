@@ -26,7 +26,10 @@ def main(address=None):
         socket.send(pickled_graph)
         path = nx.shortest_path(graph, choice(nodes), choice(nodes))
         socket.send(pickle.dumps(path))
-        time.sleep(0.1)
+        if "diag" in sys.argv[1:]:
+            input()
+        else:
+            time.sleep(0.1)
 
 if __name__ == '__main__':
     main()
